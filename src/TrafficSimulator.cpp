@@ -119,6 +119,8 @@ int main()
     std::vector<std::shared_ptr<Vehicle>> vehicles;
     std::string backgroundImg;
     int nVehicles = 6;
+
+    // createTrafficObjects_NYC(streets, intersections, vehicles, backgroundImg, nVehicles);
     createTrafficObjects_Paris(streets, intersections, vehicles, backgroundImg, nVehicles);
 
     /* PART 2 : simulate traffic objects */
@@ -142,8 +144,8 @@ int main()
         trafficObjects.push_back(trafficObject);
     });
 
-    std::for_each(vehicles.begin(), vehicles.end(), [&trafficObjects](std::shared_ptr<Vehicle> &vehicles) {
-        std::shared_ptr<TrafficObject> trafficObject = std::dynamic_pointer_cast<TrafficObject>(vehicles);
+    std::for_each(vehicles.begin(), vehicles.end(), [&trafficObjects](std::shared_ptr<Vehicle> &vehicle) {
+        std::shared_ptr<TrafficObject> trafficObject = std::dynamic_pointer_cast<TrafficObject>(vehicle);
         trafficObjects.push_back(trafficObject);
     });
 

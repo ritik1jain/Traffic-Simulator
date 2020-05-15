@@ -18,19 +18,19 @@ public:
     void setCurrentDestination(std::shared_ptr<Intersection> destination);
 
     // typical behaviour methods
-    void simulate();
+    void simulate() override;
 
     // miscellaneous
     std::shared_ptr<Vehicle> get_shared_this() { return shared_from_this(); }
 
 private:
     // typical behaviour methods
-    void drive();
+    void drive_();
 
     std::shared_ptr<Street> _currStreet;            // street on which the vehicle is currently on
     std::shared_ptr<Intersection> _currDestination; // destination to which the vehicle is currently driving
     double _posStreet;                              // position on current street
-    double _speed;                                  // ego speed in m/s
+    double _speed;                                  // speed in m/s
 };
 
 #endif

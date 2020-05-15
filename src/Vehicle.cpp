@@ -25,11 +25,11 @@ void Vehicle::setCurrentDestination(std::shared_ptr<Intersection> destination)
 void Vehicle::simulate()
 {
     // launch drive function in a thread
-    threads.emplace_back(std::thread(&Vehicle::drive, this));
+    _threads.emplace_back(&Vehicle::drive_, get_shared_this());
 }
 
 // virtual function which is executed in a thread
-void Vehicle::drive()
+void Vehicle::drive_()
 {
     // print id of the current thread
     std::unique_lock<std::mutex> lck(_mtx);
@@ -73,7 +73,7 @@ void Vehicle::drive()
             yv = y1 + completion * dy;
             this->setPosition(xv, yv);
 
-            // check wether halting position in front of destination has been reached
+            // check whether halting position in front of destination has been reached
             if (completion >= 0.9 && !hasEnteredIntersection)
             {
                 // request entry to the current intersection (using async)
@@ -87,7 +87,7 @@ void Vehicle::drive()
                 hasEnteredIntersection = true;
             }
 
-            // check wether intersection has been crossed
+            // check whether intersection has been crossed
             if (completion >= 1.0 && hasEnteredIntersection)
             {
                 // choose next street and destination
